@@ -1,0 +1,10 @@
+#[1] Python 2.7
+
+#[2] python2
+wget for python
+
+#pip install wget
+#OR
+#pip2 install wget
+
+wget==2.0
