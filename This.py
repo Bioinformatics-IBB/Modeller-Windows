@@ -223,22 +223,22 @@ for i in list1:
 
 	###################################################################################################
 	#										Align2D.py
-	print "###################################################################################################"
-	print "#														Align2D.py"
-	print "###################################################################################################"
-	# Align2D starts from here
+	# print "###################################################################################################"
+	# print "#														Align2D.py"
+	# print "###################################################################################################"
+	# # Align2D starts from here
 
 	
-	#import Compare as tryPy1
-	#env = environ()
-	aln = alignment(env)
-	#mdl = model(env, file=pdb, model_segment=('FIRST:A','LAST:A'))
-	mdl = model(env, file=os.getcwd()+"\\GST\\PDB\\"+pdb, model_segment=('FIRST:A','LAST:A'))
-	aln.append_model(mdl, align_codes=pdb+chain, atom_files=os.getcwd()+"\\GST\\PDB\\"+pdb+'.pdb')	
-	aln.append(file=os.getcwd()+"\\GST\\ALI\\"+selected_PDB+'_build_profile.ali', align_codes=selected_PDB)
-	aln.align2d()
-	aln.write(file=os.getcwd()+"\\GST\\ALI\\"+selected_PDB+'-'+pdb+chain+'.ali', alignment_format='PIR')
-	aln.write(file=os.getcwd()+"\\GST\\PAP\\"+selected_PDB+'-'+pdb+chain+'.pap', alignment_format='PAP')
+	# #import Compare as tryPy1
+	# #env = environ()
+	# aln = alignment(env)
+	# #mdl = model(env, file=pdb, model_segment=('FIRST:A','LAST:A'))
+	# mdl = model(env, file=os.getcwd()+"\\GST\\PDB\\"+pdb, model_segment=('FIRST:A','LAST:A'))
+	# aln.append_model(mdl, align_codes=pdb+chain, atom_files=os.getcwd()+"\\GST\\PDB\\"+pdb+'.pdb')	
+	# aln.append(file=os.getcwd()+"\\GST\\ALI\\"+selected_PDB+'_build_profile.ali', align_codes=selected_PDB)
+	# aln.align2d()
+	# aln.write(file=os.getcwd()+"\\GST\\ALI\\"+selected_PDB+'-'+pdb+chain+'.ali', alignment_format='PIR')
+	# aln.write(file=os.getcwd()+"\\GST\\PAP\\"+selected_PDB+'-'+pdb+chain+'.pap', alignment_format='PAP')
 
 
 	###################################################################################################
