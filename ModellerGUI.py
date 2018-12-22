@@ -357,7 +357,7 @@ def modellerF():
 
 #----------    
 def modellerFCall():
-   b1 = Button(win,text="Runninng..",cursor='watch', font="Helvetica 14",anchor='w',padx=100,pady=20,relief=SUNKEN,activebackground='lightgrey',activeforeground="blue",fg="#90A4AE").grid(row=8,column=3)
+   b1 = Button(win,text="Runninng..",cursor='watch', font="Helvetica 14",anchor='w',padx=80,pady=20,relief=SUNKEN,activebackground='lightgrey',activeforeground="blue",fg="#90A4AE").grid(row=8,column=3)
    modellerF()
 #----------
 
