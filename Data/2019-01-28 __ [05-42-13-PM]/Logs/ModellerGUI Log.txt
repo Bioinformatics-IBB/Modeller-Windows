@@ -1,0 +1,140 @@
+# This file have all the modeller python file, Which will run one by one
+#  [1] Build_profile.py
+#  [2] Compare.py
+#  [3] Align2d.py
+#  [4] Modelssingle.py
+#  [5] Evaluate_model.py
+###################################################################################################
+#                                     Build_Profile.py
+###################################################################################################
+
+**** Name of  "Selected_PDB"    is = B0FGV7
+
+**** File name is = B0FGV7.ali
+ 
+openf___224_> Open           pdb_95.pir
+readlinef__W> File: pdb_95.pir, Line: 407
+              Modeller will only read the first 4096 characters of this line.
+
+readlinef__W> File: pdb_95.pir, Line: 27190
+              Modeller will only read the first 4096 characters of this line.
+
+readlinef__W> File: pdb_95.pir, Line: 27200
+              Modeller will only read the first 4096 characters of this line.
+
+readlinef__W> File: pdb_95.pir, Line: 27210
+              Modeller will only read the first 4096 characters of this line.
+
+readlinef__W> File: pdb_95.pir, Line: 27217
+              Modeller will only read the first 4096 characters of this line.
+
+readlinef__W> File: pdb_95.pir, Line: 27223
+              No more warnings will be printed for truncated lines in this file.
+
+
+Dynamically allocated memory at amaxsequence_db [B,KiB,MiB]:       494216     482.633     0.471
+
+Dynamically allocated memory at amaxsequence_db [B,KiB,MiB]:      3670718    3584.686     3.501
+
+Dynamically allocated memory at   amaxalignment [B,KiB,MiB]:      3672560    3586.484     3.502
+
+Dynamically allocated memory at   amaxalignment [B,KiB,MiB]:      3674010    3587.900     3.504
+
+Dynamically allocated memory at   amaxalignment [B,KiB,MiB]:      3676910    3590.732     3.507
+
+Dynamically allocated memory at amaxsequence_db [B,KiB,MiB]:     15663909   15296.786    14.938
+
+Dynamically allocated memory at   amaxalignment [B,KiB,MiB]:     15669709   15302.450    14.944
+
+Dynamically allocated memory at   amaxalignment [B,KiB,MiB]:     15681309   15313.778    14.955
+
+Dynamically allocated memory at   amaxalignment [B,KiB,MiB]:     15704509   15336.435    14.977
+
+Dynamically allocated memory at   amaxalignment [B,KiB,MiB]:     15750909   15381.747    15.021
+
+Dynamically allocated memory at   amaxalignment [B,KiB,MiB]:     15843709   15472.372    15.110
+
+Dynamically allocated memory at amaxsequence_db [B,KiB,MiB]:     21837209   21325.398    20.826
+
+SEQ_DATABASE_FILE         : pdb_95.pir
+SEQ_DATABASE_FORMAT       : PIR
+CHAINS_LIST               : ALL
+CLEAN_SEQUENCES           :            T
+MINMAX_DB_SEQ_LEN         :           30        4000
+Number of sequences       :        59935
+Number of residues        :     15163123
+Length of longest sequence:         3725
+
+###################################################################################################
+#                                  Build_Profile.py > Sequence,read()
+###################################################################################################
+
+SEQ_DATABASE_FILE         : pdb_95.bin
+SEQ_DATABASE_FORMAT       : BINARY
+SEARCH_CHAINS_LIST        : ALL
+Number of sequences       :        59935
+Number of residues        :     15163123
+Length of longest sequence:         3725
+
+###################################################################################################
+#                                  Build_Profile.py > Sequence,write()
+###################################################################################################
+
+SEQ_DATABASE_FILE         : pdb_95.bin
+SEQ_DATABASE_FORMAT       : BINARY
+CHAINS_LIST               : ALL
+CLEAN_SEQUENCES           :            T
+MINMAX_DB_SEQ_LEN         :            0      999999
+Number of sequences       :        59935
+Number of residues        :     15163123
+Length of longest sequence:         3725
+
+###################################################################################################
+#                                     Build_Profile.py > Sequence,read_Binary()
+###################################################################################################
+openf___224_> Open           C:\MyData\Coding\Modeller\Modeller-Windows\OnWorking\Data\2019-01-28 __ [05-42-13-PM]\Input ALI\B0FGV7.ali
+
+Dynamically allocated memory at   amaxalignment [B,KiB,MiB]:       496136     484.508     0.473
+
+Dynamically allocated memory at   amaxalignment [B,KiB,MiB]:       497586     485.924     0.475
+
+Dynamically allocated memory at   amaxalignment [B,KiB,MiB]:       500486     488.756     0.477
+
+Dynamically allocated memory at   amaxalignment [B,KiB,MiB]:       506286     494.420     0.483
+
+Dynamically allocated memory at   amaxalignment [B,KiB,MiB]:       517886     505.748     0.494
+
+Dynamically allocated memory at    amaxsequence [B,KiB,MiB]:       520042     507.854     0.496
+
+Read the alignment from file       : C:\MyData\Coding\Modeller\Modeller-Windows\OnWorking\Data\2019-01-28 __ [05-42-13-PM]\Input ALI\B0FGV7.ali
+Total number of alignment positions:   540
+
+  #  Code        #_Res #_Segm PDB_code    Name
+-------------------------------------------------------------------------------
+  1     B0FGV7     540      1      B0FGV7
+###################################################################################################
+#                               Build_Profile.py > Appending, writing files in .ali()
+###################################################################################################
+
+Dynamically allocated memory at     amaxprofile [B,KiB,MiB]:       522527     510.280     0.498
+###################################################################################################
+#                                Build_Profile.py > Alignment_To_Profile(converstion)
+###################################################################################################
+openf___224_> Open           ${LIB}\blosum62.sim.mat
+rdrrwgh_268_> Number of residue types:       21
+
+Dynamically allocated memory at amaxsequence_db [B,KiB,MiB]:       851765     831.802     0.812
+profile_iteration_> processing sequence:       1    540      1     0.0156250     0.0156250     0.0156250     1
+
+Dynamically allocated memory at amaxsequence_db [B,KiB,MiB]:       858075     837.964     0.818
+profile_iteration_> processing sequence:    5995    540      1     6.4375000     0.0010738     0.0000041   931
+profile_iteration_> processing sequence:   11989    540      1    16.2656250     0.0013567     0.0000053   737
+profile_iteration_> processing sequence:   17983    540      1    27.2343750     0.0015145     0.0000060   660
+
+Dynamically allocated memory at amaxsequence_db [B,KiB,MiB]:       859374     839.232     0.820
+profile_iteration_> processing sequence:   23977    540      1    33.4843750     0.0013965     0.0000055   716
+profile_iteration_> processing sequence:   29971    540      1    40.6718750     0.0013570     0.0000054   737
+profile_iteration_> processing sequence:   35965    540      1    51.0937500     0.0014207     0.0000057   704
+profile_iteration_> processing sequence:   41959    540      1    57.2031250     0.0013633     0.0000055   734
+
+Dynamically allocated memory at amaxsequence_db [B,KiB,MiB]:       860199     840.038     0.820

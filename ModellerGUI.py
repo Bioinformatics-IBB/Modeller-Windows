@@ -10,6 +10,7 @@ from modeller.automodel import *
 from modeller.scripts import complete_pdb
 import glob,os
 import wget
+import sys
 
 selected_PDB=" "
 maxE = 0.0
@@ -29,6 +30,9 @@ j=""
 new_text =""
 list1=""
 count=0
+
+# Creating mandatory folders
+mydir =  datetime.now().strftime("%Y-%m-%d __ [%I-%M-%S-%p]")
 
 # To check the current selected alignment file from /alignments folder
 def after_loop_lab1_2(selected_PDB):
@@ -53,13 +57,14 @@ def after_loop_lab2_2(pdb_name):
 
 def modellerF():
    # Gerenating Logs
+   
    log.verbose()
    env = environ()
    function0()
    function1()
 
-   # Creating mandatory folders
-   mydir =  datetime.now().strftime("%Y-%m-%d __ [%I-%M-%S-%p]")
+
+
    os.makedirs(os.path.join(os.getcwd()+"\\Data\\",mydir))
    os.makedirs(os.path.join(os.getcwd()+"\\Data\\",mydir+"\\Input ALI"))
    os.makedirs(os.path.join(os.getcwd()+"\\Data\\",mydir+"\\Input FASTA"))
@@ -67,6 +72,9 @@ def modellerF():
    os.makedirs(os.path.join(os.getcwd()+"\\Data\\",mydir+"\\PDB"))
    os.makedirs(os.path.join(os.getcwd()+"\\Data\\",mydir+"\\Output ALI"))
    os.makedirs(os.path.join(os.getcwd()+"\\Data\\",mydir+"\\PAP"))
+   os.makedirs(os.path.join(os.getcwd()+"\\Data\\",mydir+"\\Logs"))
+   # Gerenating Logs
+   #sys.stdout = open(os.getcwd()+"\\Data\\"+mydir+"\\Logs\\ModellerGUI Log.txt", "w")  # Printing Logs
 
    # Using Glob Module. Now we can find the files having specific format i.e. .py
    files1 = os.listdir(os.getcwd()+"\\Data\\Alignments")
@@ -283,15 +291,22 @@ def modellerF():
       
       
       # Downloading selected PDB file from Wget, Runtime
-      url = "https://files.rcsb.org/download/"+pdb+".pdb"
+      url = "https://files.rcsb.org/download/"+pdb+".pdb"  # Actual Code, The following one will not be valid code.
+      # url = "https://files.rcsb.org/download/1bdm.pdb" # Just for Try
       file1 = wget.download(url, os.getcwd()+"\\Data\\"+mydir+"\\PDB\\")
 
       # [B] Actual Compare.py starts here
       #     All codes above were for the preparing the data only
       #    Now we have best (pdb, chain)
-      m = model(env, file=os.getcwd()+"\\Data\\"+mydir+"\\PDB\\"+pdb+".pdb", model_segment=('FIRST:'+chain, 'LAST:'+chain))
+      
+      #print("\n\n==============Env : ",env)
+      #print("\n\n==============PDB : "+pdb)
+
+      #file=os.getcwd()+"\\Data\\"+mydir+"\\PDB\\"+pdb+".pdb"
+      m = model(env,file=os.getcwd()+"\\Data\\"+mydir+"\\PDB\\"+pdb+".pdb", model_segment=('FIRST:'+chain, 'LAST:'+chain))
+      aln.append_model(m, atom_files = os.getcwd()+"\\Data\\"+mydir+"\\PDB\\"+pdb+".pdb",  align_codes=pdb+chain)
       print "**** Model is Made"
-      aln.append_model(m, atom_files=os.getcwd()+"\\Data\\"+mydir+"\\PDB\\"+pdb,  align_codes=pdb+chain)
+      # atom_files=os.getcwd()+"\\Data\\"+mydir+"\\PDB\\"+pdb
       aln.malign()
       aln.malign()
       aln.malign3d()
@@ -312,11 +327,53 @@ def modellerF():
       aln = alignment(env)
       #mdl = model(env, file=pdb, model_segment=('FIRST:A','LAST:A'))
       mdl = model(env, file=os.getcwd()+"\\Data\\"+mydir+"\\PDB\\"+pdb, model_segment=('FIRST:A','LAST:A'))
-      aln.append_model(mdl, align_codes=pdb+chain, atom_files=os.getcwd()+"\\GST\\PDB\\"+pdb+'.pdb')  
+      aln.append_model(mdl, align_codes=pdb+chain, atom_files=os.getcwd()+"\\Data\\"+mydir+"\\PDB\\"+pdb+'.pdb')  
       aln.append(file=os.getcwd()+"\\Data\\"+mydir+"\\Output ALI\\"+selected_PDB+'_build_profile.ali', align_codes=selected_PDB)
       aln.align2d()
       aln.write(file=os.getcwd()+"\\Data\\"+mydir+"\\Output ALI\\"+selected_PDB+'-'+pdb+chain+'.ali', alignment_format='PIR')
       aln.write(file=os.getcwd()+"\\Data\\"+mydir+"\\PAP\\"+selected_PDB+'-'+pdb+chain+'.pap', alignment_format='PAP')
+
+      #selected = "B0FGV7"
+      dash = "-"
+      #pdb = "5a2g"
+      #chain = "A"
+      file = open(os.getcwd()+"\\Data\\"+mydir+"\\Output ALI\\"+selected_PDB+dash+pdb+chain+".ali","r")
+      fileTemp = open(os.getcwd()+"\\Data\\"+mydir+"\\Output ALI\\"+selected_PDB+dash+pdb+chain+".ali.tmp","w+")
+      i = 0
+      k=0
+
+      for x in file:
+      	i=i+1 # Line count
+      	if i == 3:
+      		k=0
+      		singleLine = x[0:11]
+      		print("Printing singleLine in IF: ",singleLine)
+      		for j in x:
+      			print("\n\n\n\n::working::")
+      			#print("Value of Kkkkkkk: ",k)
+      			k = k+1 # index count
+      			if x[k] == "P" and x[k+1] == "D" and x[k+2] == "B" and x[k+3] == "\\":
+      				print("::IF statement IS working::")
+      				singleLine = singleLine+x[k+4:]
+      				print("Printing singleLineeeeeeeeeee: ", singleLine)
+      				fileTemp.write(singleLine)
+      				break
+      			print("::IF statement not working::")
+      			#print("Printing singleLineeeeeeeeeee: ", singleLine)
+      	else:
+      		#k = k+1 # index count
+      		singleLine = x
+      		#print("Printing singleLine in ELSE: ",singleLine)
+      		print(singleLine)
+      		fileTemp.write(singleLine)
+      file.close()
+      fileTemp.close()
+      os.remove(os.getcwd()+"\\Data\\"+mydir+"\\Output ALI\\"+selected_PDB+dash+pdb+chain+".ali")
+
+      os.rename(os.getcwd()+"\\Data\\"+mydir+"\\Output ALI\\"+selected_PDB+dash+pdb+chain+".ali.tmp",os.getcwd()+"\\Data\\"+mydir+"\\Output ALI\\"+selected_PDB+dash+pdb+chain+".ali")
+      
+
+
 
 
       ###################################################################################################
@@ -333,6 +390,7 @@ def modellerF():
       a.starting_model = 1
       a.ending_model = 5
       a.make()
+      #a.make(os.getcwd()+"\\Data\\"+mydir+"\\PDB\\"+pdb+".pdb")
 
       # Updating the Process status Presenter. It will tell us that the Model is created for the current ALI file
       function4()
