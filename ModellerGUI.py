@@ -30,6 +30,7 @@ j=""
 new_text =""
 list1=""
 count=0
+iterationCount = 0
 
 # Creating mandatory folders
 mydir =  datetime.now().strftime("%Y-%m-%d __ [%I-%M-%S-%p]")
@@ -93,10 +94,10 @@ def modellerF():
       listBox1.insert(count,'['+str(count)+'] '+x)
       count=count+1
    listBox1.grid(row=8,column=1)
-
+   iterationCount = 0
    for i in list1:
       selected_PDB = i[:-4]
-      
+      iterationCount = iterationCount + 1
       # This file have all the modeller python file, Which will run one by one.
       # [1] Build_profile.py
       # [2] Compare.py
@@ -119,6 +120,7 @@ def modellerF():
       #-- Name of Selected ALI file from \\alignments folder
       print "\n**** Name of  \"Selected_PDB\"    is = "+selected_PDB
       print "\n**** File name is = "+i
+      print "\n**** Iteration count = ",iterationCount
       print " "
       
       # Calling this function to update(on runtime) the Current ALI file label in GUI
@@ -387,6 +389,8 @@ def modellerF():
                     assess_methods=(assess.DOPE,
                                     #soap_protein_od.Scorer(),
                                     assess.GA341))
+      shutil.copy(os.getcwd()+"\\Data\\"+mydir+"\\PDB\\"+pdb+".pdb" ,os.getcwd()+"\\Data\\"+mydir+"\\Output ALI\\")
+      shutil.copy(os.getcwd()+"\\Data\\"+mydir+"\\PDB\\"+pdb+".pdb" ,os.getcwd())
       a.starting_model = 1
       a.ending_model = 5
       a.make()
