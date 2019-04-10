@@ -1,4 +1,4 @@
-
+import threading
 import tkFileDialog, shutil # For Copying file from one folder to another
 from datetime import datetime 
 from Tkinter import *
@@ -47,12 +47,14 @@ def after_loop_lab2_2(pdb_name):
    new_text = pdb_name
    lab2_2 = Label(win, text='pdb_95.pir',font="Times 16 ", bg="white" ,anchor='w',padx=100,pady=5, fg='black',relief=SUNKEN).grid(row=3,column=1)
 
-    
+  
+
+
 #-----
 # def changeValue():
-# 	new_text = random.randint(1,101)
-# 	lab1_2 = Label(win,text=new_text, font="Times 16 bold", bg="white").grid(row=0, column=1)
-# 	win.after(500,changeValue)
+#  new_text = random.randint(1,101)
+#  lab1_2 = Label(win,text=new_text, font="Times 16 bold", bg="white").grid(row=0, column=1)
+#  win.after(500,changeValue)
 #-----
 
 
@@ -74,9 +76,7 @@ def modellerF():
    os.makedirs(os.path.join(os.getcwd()+"\\Data\\",mydir+"\\Output ALI"))
    os.makedirs(os.path.join(os.getcwd()+"\\Data\\",mydir+"\\PAP"))
    os.makedirs(os.path.join(os.getcwd()+"\\Data\\",mydir+"\\Logs"))
-   # Gerenating Logs
-   #sys.stdout = open(os.getcwd()+"\\Data\\"+mydir+"\\Logs\\ModellerGUI Log.txt", "w")  # Printing Logs
-
+   
    # Using Glob Module. Now we can find the files having specific format i.e. .py
    files1 = os.listdir(os.getcwd()+"\\Data\\Alignments")
    for f in files1:
@@ -147,8 +147,7 @@ def modellerF():
       print "#                                     Build_Profile.py > Sequence,read_Binary()"
       print "###################################################################################################"
       
-      # To update PDB Database name on GUI
-      after_loop_lab2_2('pdb_95.pir')
+      
 
       #-- Read in the target sequence\\alignment
       aln = alignment(env)
@@ -291,6 +290,8 @@ def modellerF():
          pdb = pdb[:-1]
       print "**** PDb, Chains are: "+pdb+chain
       
+      # To update PDB Database name on GUI
+      after_loop_lab2_2('pdb_95.pir')
       
       # Downloading selected PDB file from Wget, Runtime
       url = "https://files.rcsb.org/download/"+pdb+".pdb"  # Actual Code, The following one will not be valid code.
@@ -345,29 +346,29 @@ def modellerF():
       k=0
 
       for x in file:
-      	i=i+1 # Line count
-      	if i == 3:
-      		k=0
-      		singleLine = x[0:11]
-      		print("Printing singleLine in IF: ",singleLine)
-      		for j in x:
-      			print("\n\n\n\n::working::")
-      			#print("Value of Kkkkkkk: ",k)
-      			k = k+1 # index count
-      			if x[k] == "P" and x[k+1] == "D" and x[k+2] == "B" and x[k+3] == "\\":
-      				print("::IF statement IS working::")
-      				singleLine = singleLine+x[k+4:]
-      				print("Printing singleLineeeeeeeeeee: ", singleLine)
-      				fileTemp.write(singleLine)
-      				break
-      			print("::IF statement not working::")
-      			#print("Printing singleLineeeeeeeeeee: ", singleLine)
-      	else:
-      		#k = k+1 # index count
-      		singleLine = x
-      		#print("Printing singleLine in ELSE: ",singleLine)
-      		print(singleLine)
-      		fileTemp.write(singleLine)
+         i=i+1 # Line count
+         if i == 3:
+            k=0
+            singleLine = x[0:11]
+            #print("Printing singleLine in IF: ",singleLine)
+            for j in x:
+               #print("\n\n\n\n::working::")
+               #print("Value of Kkkkkkk: ",k)
+               k = k+1 # index count
+               if x[k] == "P" and x[k+1] == "D" and x[k+2] == "B" and x[k+3] == "\\":
+                  #print("::IF statement IS working::")
+                  singleLine = singleLine+x[k+4:]
+                  #print("Printing singleLineeeeeeeeeee: ", singleLine)
+                  fileTemp.write(singleLine)
+                  break
+               #print("::IF statement not working::")
+               #print("Printing singleLineeeeeeeeeee: ", singleLine)
+         else:
+            #k = k+1 # index count
+            singleLine = x
+            #print("Printing singleLine in ELSE: ",singleLine)
+            print(singleLine)
+            fileTemp.write(singleLine)
       file.close()
       fileTemp.close()
       os.remove(os.getcwd()+"\\Data\\"+mydir+"\\Output ALI\\"+selected_PDB+dash+pdb+chain+".ali")
@@ -410,17 +411,30 @@ def modellerF():
       env.libs.parameters.read(file='$(LIB)\\par.lib') # read parameters
 
       # read model file
-      mdl = complete_pdb(env, selected_PDB+'.B99990002.pdb')
+      mdl = complete_pdb(env, os.getcwd()+"\\Data\\PAP\\"+selected_PDB+'.B99990002.pdb')
 
       # Assess with DOPE:
       s = selection(mdl)   # all atom selection
-      s.assess_dope(output='ENERGY_PROFILE NO_REPORT', file=selected_PDB+'.profile',
+      s.assess_dope(output='ENERGY_PROFILE NO_REPORT', file=os.getcwd()+"\\Data\\PAP\\"+selected_PDB+'.profile',
                     normalize_profile=True, smoothing_window=15)
+#----------
 
-#----------    
+#----------
+def logPrint():
+
+   # Gerenating Logs
+   sys.stdout = open(os.getcwd()+"\\Data\\"+mydir+"\\Logs\\ModellerGUI Log.txt", "w")  # Printing Logs
+
+#----------
+
+#----------  
 def modellerFCall():
    b1 = Button(win,text="Runninng..",cursor='watch', font="Helvetica 14",anchor='w',padx=80,pady=20,relief=SUNKEN,activebackground='lightgrey',activeforeground="blue",fg="#90A4AE").grid(row=8,column=3)
-   modellerF()
+   b2 = Button(win, text="Open FASTA Files",cursor='watch', font="Helvetica 14", anchor='w',padx=10,pady=10,relief=SUNKEN,activebackground='lightgrey',activeforeground="blue",fg="#90A4AE").grid(row=0,column=1) #,command=
+   b3 = Button(win, text="Open ALI Files",cursor='watch', font="Helvetica 14",anchor='w',padx=25,pady=10,relief=SUNKEN,activebackground='lightgrey',activeforeground="blue",fg="#90A4AE").grid(row=0,column=2) #,command=
+   
+   threadSys.start()
+   threadLog.start()
 #----------
 
 #----------
@@ -437,6 +451,7 @@ def aliFileOpener():
       print x
       shutil.copy(x,os.getcwd()+"\\Data\\Input ALI\\")
 #----------
+
 #----------
 def function0():
    processOne = Label(win, text="Environment Created",font="Verdana 16",anchor='w',padx=10,pady=10,relief=GROOVE, fg='black',bg="white").grid(row=11,column=0)
@@ -460,11 +475,9 @@ def function3():
 def function4():
    lab4 = Label(win, text="Model Created",font="Verdana 16",anchor='w',padx=10,pady=10,relief=GROOVE, fg='black',bg="#90CAF9").grid(row=11,column=3)
    
-#----------   
-if __name__ == '__main__':   
+#---------- 
 
-   win = Tk()
-
+def ModellerGUIF():
    #Declaring Text
    lab1Text = Label(win, text="Open files",font="Verdana 16 bold" ,anchor='w',padx=100,pady=5, fg='black',bg='#90A4AE').grid(row=0, column=0)
    b1 = Button(win, text="Open FASTA Files", font="Helvetica 14", command=fastaFileOpener,anchor='w',padx=10,pady=10,relief=GROOVE,bg='#80CBC4',activebackground='lightgrey',activeforeground="blue").grid(row=0,column=1) #,command=
@@ -517,4 +530,14 @@ if __name__ == '__main__':
    #GUI configurations
    win.geometry("1400x700")
    win.configure(bg="#90A4AE")
-   win.mainloop()
+   win.mainloop()  
+if __name__ == '__main__':   
+
+   win = Tk()
+   threadGUI = threading.Thread(target = ModellerGUIF)
+   threadLog = threading.Thread(target = logPrint) 
+   threadSys = threading.Thread(target = modellerF)
+
+   threadGUI.start()
+   
+  
