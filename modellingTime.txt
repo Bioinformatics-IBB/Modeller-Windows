@@ -1,0 +1,23 @@
+--
+Modeller start = 2:25 PM
+Modelling ends = 2:32 PM
+========================
+                   7 minutes for modelling
+
+Modeller start = 2:32 PM
+Modelling ends = 2:39 PM
+========================
+                   7 minutes for modelling
+
+Modeller start = 2:39 PM
+Modelling ends = 2:45 PM
+========================
+                   7 minutes for modelling
+
+
+
+
+Modeller start = 3:20 PM
+Modelling ends = 3:     
+========================
+                    minutes for modelling                   

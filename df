@@ -1,0 +1,35 @@
+[33mcommit 3aee95e0594d8438f180bbe586a531bbd04d2e5b[m[33m ([m[1;36mHEAD -> [m[1;32mOnWorking[m[33m)[m
+Author: Priyank Namdev <priyank.namdev@gmail.com>
+Date:   Wed Apr 10 10:00:10 2019 +0530
+
+    Working code of Modeller
+
+[33mcommit 6d6b6ba0c1376133fba9950f47ba00321373de23[m
+Author: Priyank Namdev <priyank.namdev@gmail.com>
+Date:   Tue Apr 9 17:24:10 2019 +0530
+
+    working alignment files
+
+[33mcommit c80da1f24ff91fea154febf41a3ab8bedb14c46c[m
+Author: Priyank Namdev <priyank.namdev@gmail.com>
+Date:   Sat Dec 22 06:34:20 2018 +0530
+
+    Update .gitattribute
+
+[33mcommit 5037c467ea1da6f932ba5f9c46401aaf898284dd[m
+Author: Priyank Namdev <priyank.namdev@gmail.com>
+Date:   Sat Dec 22 06:27:50 2018 +0530
+
+    Update files & .GitIgnore
+
+[33mcommit bae62aa28ea97c9562fe286fb5385c65fb2cec8a[m
+Author: Priyank Namdev <priyank.namdev@gmail.com>
+Date:   Mon Dec 3 08:26:10 2018 +0530
+
+    Working GUI - A Fabulous one
+
+[33mcommit c99dc898e3dfa4fabafca0adb1997dc20af73b5d[m[33m ([m[1;32mmaster[m[33m)[m
+Author: Priyank Namdev <priyank.namdev@gmail.com>
+Date:   Wed Oct 31 11:12:30 2018 +0530
+
+    Initial Commit
