@@ -69,22 +69,28 @@ def modellerF():
 
 
    os.makedirs(os.path.join(os.getcwd()+"\\Data\\",mydir))
-   os.makedirs(os.path.join(os.getcwd()+"\\Data\\",mydir+"\\Input ALI"))
-   os.makedirs(os.path.join(os.getcwd()+"\\Data\\",mydir+"\\Input FASTA"))
+   os.makedirs(os.path.join(os.getcwd()+"\\Data\\",mydir+"\\Inputs"))
    os.makedirs(os.path.join(os.getcwd()+"\\Data\\",mydir+"\\PRF"))
    os.makedirs(os.path.join(os.getcwd()+"\\Data\\",mydir+"\\PDB"))
    os.makedirs(os.path.join(os.getcwd()+"\\Data\\",mydir+"\\Output ALI"))
    os.makedirs(os.path.join(os.getcwd()+"\\Data\\",mydir+"\\PAP"))
    os.makedirs(os.path.join(os.getcwd()+"\\Data\\",mydir+"\\Logs"))
-   
-   # Using Glob Module. Now we can find the files having specific format i.e. .py
-   files1 = os.listdir(os.getcwd()+"\\Data\\Alignments")
-   for f in files1:
-      full_file_name = os.path.join(os.getcwd()+"\\Data\\Alignments", f)
-      if (os.path.isfile(full_file_name)):
-         shutil.copy(full_file_name, os.getcwd()+"\\Data\\"+mydir+"\\Input ALI")
+   # shutil.copy(os.getcwd()+"\\Data\\Inputs\\*.*", os.getcwd()+"\\Data\\"+mydir+"\\Inputs\\*.*")
 
-   list1 =  os.listdir(os.getcwd()+"\\Data\\"+mydir+"\\Input ALI")
+   # Using Glob Module. Now we can find the files having specific format i.e. .py
+   files1 = os.listdir(os.getcwd()+"\\Inputs")
+   for f in files1:
+   	full_file_name = os.path.join(os.getcwd()+"\\Inputs", f)
+   	if (os.path.isfile(full_file_name)):
+   		shutil.copy(full_file_name, os.getcwd()+"\\Data\\"+mydir+"\\Inputs")
+   # # Using Glob Module. Now we can find the files having specific format i.e. .py
+   # files1 = os.listdir(os.getcwd()+"\\Alignments")
+   # for f in files1:
+   #    full_file_name = os.path.join(os.getcwd()+"\\Data\\Alignments", f)
+   #    if (os.path.isfile(full_file_name)):
+   #       shutil.copy(full_file_name, os.getcwd()+"\\Data\\"+mydir+"\\Inputs")
+
+   list1 =  os.listdir(os.getcwd()+"\\Data\\"+mydir+"\\Inputs")
    
    # Updating list of alignments to the ListBox
    label2 = Label(win, text="Found Alignment files in folder : ",font="Verdana 16 ",bg="#90A4AE").grid(row=8,column=0)
@@ -151,7 +157,7 @@ def modellerF():
 
       #-- Read in the target sequence\\alignment
       aln = alignment(env)
-      aln.append(file=os.getcwd()+"\\Data\\"+mydir+"\\Input ALI\\"+selected_PDB+'.ali', alignment_format='PIR', align_codes='ALL')
+      aln.append(file=os.getcwd()+"\\Data\\"+mydir+"\\Inputs\\"+selected_PDB+'.ali', alignment_format='PIR', align_codes='ALL')
       function2()
       print "###################################################################################################"
       print "#                               Build_Profile.py > Appending, writing files in .ali()"
@@ -394,6 +400,7 @@ def modellerF():
       shutil.copy(os.getcwd()+"\\Data\\"+mydir+"\\PDB\\"+pdb+".pdb" ,os.getcwd())
       a.starting_model = 1
       a.ending_model = 5
+      # abc = raw_input("I am in Evaluate_Model.py and this is the [ZERO]: ")
       a.make()
       #a.make(os.getcwd()+"\\Data\\"+mydir+"\\PDB\\"+pdb+".pdb")
 
@@ -407,16 +414,33 @@ def modellerF():
 
       #log.verbose()    # request verbose output
       #env = environ()
+      # abc = raw_input("I am in Evaluate_Model.py and this is the [FIRST]: ")
       env.libs.topology.read(file='$(LIB)\\top_heav.lib') # read topology
-      env.libs.parameters.read(file='$(LIB)\\par.lib') # read parameters
 
+      # abc = raw_input("I am in Evaluate_Model.py and this is the [SECOND]: ")
+      env.libs.parameters.read(file='$(LIB)\\par.lib') # read parameters
+      
       # read model file
-      mdl = complete_pdb(env, os.getcwd()+"\\Data\\PAP\\"+selected_PDB+'.B99990002.pdb')
+      # abc = raw_input("I am in Evaluate_Model.py and this is the [THIRD]: ")
+      mdl = complete_pdb(env, selected_PDB+'.B99990002.pdb')
 
       # Assess with DOPE:
       s = selection(mdl)   # all atom selection
-      s.assess_dope(output='ENERGY_PROFILE NO_REPORT', file=os.getcwd()+"\\Data\\PAP\\"+selected_PDB+'.profile',
+      # abc = raw_input("I am in Evaluate_Model.py and this is the [FOURTH]: ") 
+      # os.getcwd()+"\\Data\\PAP\\"+
+      s.assess_dope(output='ENERGY_PROFILE NO_REPORT', file=selected_PDB+'.profile',
                     normalize_profile=True, smoothing_window=15)
+      # abc = raw_input("I am in Evaluate_Model.py and this is the [FIFTH]: ")
+      # Using Glob Module. Now we can find the files having specific format i.e. .py
+      files1 = os.listdir(os.getcwd())
+      for f in files1:
+         if f.startswith(selected_PDB):
+            print (f)
+            full_file_name = os.path.join(os.getcwd(), f)
+            if (os.path.isfile(full_file_name)):
+               shutil.move(full_file_name, os.getcwd()+"\\Data\\"+mydir)  
+
+      os.unlink(os.getcwd()+"\\"+pdb+".pdb")
 #----------
 
 #----------
@@ -429,9 +453,9 @@ def logPrint():
 
 #----------  
 def modellerFCall():
-   b1 = Button(win,text="Runninng..",cursor='watch', font="Helvetica 14",anchor='w',padx=80,pady=20,relief=SUNKEN,activebackground='lightgrey',activeforeground="blue",fg="#90A4AE").grid(row=8,column=3)
-   b2 = Button(win, text="Open FASTA Files",cursor='watch', font="Helvetica 14", anchor='w',padx=10,pady=10,relief=SUNKEN,activebackground='lightgrey',activeforeground="blue",fg="#90A4AE").grid(row=0,column=1) #,command=
-   b3 = Button(win, text="Open ALI Files",cursor='watch', font="Helvetica 14",anchor='w',padx=25,pady=10,relief=SUNKEN,activebackground='lightgrey',activeforeground="blue",fg="#90A4AE").grid(row=0,column=2) #,command=
+   b1 = Button(win,text="Running..",cursor='watch', font="Helvetica 14",anchor='w',padx=70,pady=10,relief=SUNKEN,activebackground='lightgrey',activeforeground="blue",fg="#90A4AE").grid(row=0,column=2)
+   # b2 = Button(win, text="Open FASTA Files",cursor='watch', font="Helvetica 14", anchor='w',padx=10,pady=10,relief=SUNKEN,activebackground='lightgrey',activeforeground="blue",fg="#90A4AE").grid(row=0,column=1) #,command=
+   b3 = Button(win, text="Open ALI/Fasta Files",cursor='watch', font="Helvetica 14",anchor='w',padx=25,pady=10,relief=SUNKEN,activebackground='lightgrey',activeforeground="blue",fg="#90A4AE").grid(row=0,column=1) #,command=
    
    threadSys.start()
    threadLog.start()
@@ -439,17 +463,34 @@ def modellerFCall():
 
 #----------
 def fastaFileOpener():
-   filez = tkFileDialog.askopenfilenames(parent=win,title='Choose a file')
-   for x in filez:
-      print x
-      shutil.copy(x,os.getcwd()+"\\Data\\FASTA\\")
+	files1 = os.listdir(os.getcwd()+"\\Alignments")
+	for f in files1:
+		full_file_name = os.path.join(os.getcwd()+"\\Data", f)
+		if (os.path.isfile(full_file_name)):
+			shutil.copy(full_file_name, os.getcwd()+"\\Data\\Inputs")
+
+   # filez = os.path.basename(tkFileDialog.askopenfilenames(parent=win,title='Choose a file'))
+   
+   # print filez
+   # # abc = read()
+   # for x in filez:
+   # 	print x
+   # 	shutil.copy(x,os.getcwd()+"\\Data\\"+mydir+"\\FASTA\\")
+   # Using Glob Module. Now we can find the files having specific format i.e. .py
+
 
 #----------
 def aliFileOpener():
-   filez = tkFileDialog.askopenfilenames(parent=win,title='Choose a file')
-   for x in filez:
-      print x
-      shutil.copy(x,os.getcwd()+"\\Data\\Input ALI\\")
+	# Using Glob Module. Now we can find the files having specific format i.e. .py
+	files1 = os.listdir(os.getcwd()+"\\Inputs")
+	for f in files1:
+		full_file_name = os.path.join(os.getcwd()+"\\Inputs\\", f)
+		if (os.path.isfile(full_file_name)):
+			shutil.copy(full_file_name, os.getcwd()+"\\Data\\Inputs")
+
+
+
+
 #----------
 
 #----------
@@ -479,9 +520,9 @@ def function4():
 
 def ModellerGUIF():
    #Declaring Text
-   lab1Text = Label(win, text="Open files",font="Verdana 16 bold" ,anchor='w',padx=100,pady=5, fg='black',bg='#90A4AE').grid(row=0, column=0)
-   b1 = Button(win, text="Open FASTA Files", font="Helvetica 14", command=fastaFileOpener,anchor='w',padx=10,pady=10,relief=GROOVE,bg='#80CBC4',activebackground='lightgrey',activeforeground="blue").grid(row=0,column=1) #,command=
-   b1 = Button(win, text="Open ALI Files", font="Helvetica 14", command=aliFileOpener,anchor='w',padx=25,pady=10,relief=GROOVE,bg='#80CBC4',activebackground='lightgrey',activeforeground="blue").grid(row=0,column=2) #,command=
+   lab1Text = Label(win, text="Open files",font="Verdana 16 bold" ,anchor='w',padx=70,pady=5, fg='black',bg='#90A4AE').grid(row=0, column=0)
+   # b1 = Button(win, text="Open FASTA Files", font="Helvetica 14", command=fastaFileOpener,anchor='w',padx=10,pady=10,relief=GROOVE,bg='#80CBC4',activebackground='lightgrey',activeforeground="blue").grid(row=0,column=1) #,command=
+   b1 = Button(win, text="Open ALI/fasta Files", font="Helvetica 14", command=aliFileOpener,anchor='w',padx=25,pady=10,relief=GROOVE,bg='#80CBC4',activebackground='lightgrey',activeforeground="blue").grid(row=0,column=1) #,command=
 
    # Label: Current Alignment File
    lab1 = Label(win, text='Current Alignment File',font="Verdana 16 " ,anchor='w',padx=100,pady=5, fg='black',bg="#90A4AE" ).grid(row=1)
@@ -510,10 +551,10 @@ def ModellerGUIF():
    listBox1 = Listbox(win,font="Times 16",selectmode=EXTENDED,highlightthickness=5).grid(row=8,column=1)
       
    # Button to start the Modeller
-   b1 = Button(win, text="Start", font="Helvetica 14", command=modellerFCall,anchor='w',padx=100,pady=20,relief=GROOVE,bg='#80CBC4',activebackground='lightgrey',activeforeground="blue").grid(row=8,column=3) #,command=modellerF
+   b1 = Button(win, text="Start", font="Helvetica 14", command=modellerFCall,anchor='w',padx=70,pady=10,relief=GROOVE,bg='#80CBC4',activebackground='lightgrey',activeforeground="blue").grid(row=0,column=2) #,command=modellerF
 
    # Button to quit
-   b2 = Button(win, text='Quit', font="Helvetica 14", command=win.quit,anchor='w',padx=100,pady=20,activebackground='lightgrey',bg="#80CBC4",activeforeground="red",relief=GROOVE).grid(row=13,column=3)
+   b2 = Button(win, text='Quit', font="Helvetica 14", command=win.quit,anchor='w',padx=70,pady=10,activebackground='lightgrey',bg="#80CBC4",activeforeground="red",relief=GROOVE).grid(row=0,column=3)
    
    # This one is for making a better Identation in GUI (Jugaad)
    extraLabel1 = Label(win,bg="#90A4AE").grid(row=10)
