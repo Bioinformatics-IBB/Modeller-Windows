@@ -8,4 +8,4 @@
 *.py     text diff=python
 *.py3    text diff=python
 
-../ linguist-documentation
+./ linguist-documentation
